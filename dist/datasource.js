@@ -98,12 +98,19 @@ System.register(["lodash", "./sls.js"], function (_export, _context) {
                                 if (typeof value === 'string') {
                                     return value;
                                 }
-                                if ((typeof value === "undefined" ? "undefined" : _typeof(value)) == "object" && (variable.multi || variable.includeAll)) {
+                                if ((typeof value === "undefined" ? "undefined" : _typeof(value)) == "object" && !variable.multi && variable.includeAll) {
                                     var a = [];
                                     value.forEach(function (v) {
-                                        a.push('"' + variable.name + '":"' + v + '"');
+                                        a.push("'" + v + "'");
                                     });
-                                    return a.join(" OR ");
+                                    return a.join(" , ");
+                                }
+                                if ((typeof value === "undefined" ? "undefined" : _typeof(value)) == "object" && (variable.multi || variable.includeAll)) {
+                                    var _a = [];
+                                    value.forEach(function (v) {
+                                        _a.push('"' + variable.name + '":"' + v + '"');
+                                    });
+                                    return _a.join(" OR ");
                                 }
                                 if (typeof value == "array" || _.isArray(value)) {
                                     return value.join(' OR ');

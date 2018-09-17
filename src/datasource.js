@@ -52,6 +52,13 @@ export class GenericDatasource {
             if (typeof value === 'string') {
                 return value;
             }
+            if (typeof value == "object" && (!variable.multi && variable.includeAll)) {
+                let a = []; 
+                value.forEach(v => {
+                        a.push("'"+v+"'");
+                }); 
+                return a.join(" , ");
+            }
             if (typeof value == "object" && (variable.multi || variable.includeAll)) {
                 let a = [];
                 value.forEach(v => {
