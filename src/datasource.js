@@ -50,6 +50,9 @@ export class GenericDatasource {
         let query = this.templateSrv.replace(target.query, {}, function(value,variable, formatValue){
             console.log(typeof value);
             if (typeof value === 'string') {
+                if (!variable.multi && variable.includeAll) {
+                    return "'"+value+"'";
+                }
                 return value;
             }
             if (typeof value == "object" && (!variable.multi && variable.includeAll)) {

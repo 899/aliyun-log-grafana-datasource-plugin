@@ -96,6 +96,9 @@ System.register(["lodash", "./sls.js"], function (_export, _context) {
                             var query = _this.templateSrv.replace(target.query, {}, function (value, variable, formatValue) {
                                 console.log(typeof value === "undefined" ? "undefined" : _typeof(value));
                                 if (typeof value === 'string') {
+                                    if (!variable.multi && variable.includeAll) {
+                                        return "'" + value + "'";
+                                    }
                                     return value;
                                 }
                                 if ((typeof value === "undefined" ? "undefined" : _typeof(value)) == "object" && !variable.multi && variable.includeAll) {
